@@ -50,12 +50,19 @@ class Board:
         return False
 
     def save_result(self, now_player):
-        file = open("results.txt", "a", encoding="utf-8")
-        if not self.is_board_full():
-            file.writelines(f"Победили: {now_player}\n")
-        elif self.is_board_full():
-            file.writelines("Ничья!\n")
-        file.close()
+        with open("results.txt", "a", encoding="utf-8") as f:
+            if not self.is_board_full():
+                f.write(f"Победили: {now_player}\n")
+            elif self.is_board_full():
+                f.write("Ничья!\n")
+
+        # Версия без контекстного менеджера:
+        # file = open("results.txt", "a", encoding="utf-8")
+        # if not self.is_board_full():
+        #     file.write(f"Победили: {now_player}\n")
+        # elif self.is_board_full():
+        #     file.write("Ничья!\n")
+        # file.close()
 
     def __str__(self):
         return (
